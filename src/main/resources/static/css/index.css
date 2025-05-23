@@ -1,0 +1,96 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fff6fb;
+    margin: 0;
+}
+
+.title-header {
+    background-color: #f8f9fa; /* 배경색 */
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
+    width: 30%;
+    margin: auto auto 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 */
+}
+.title-header h1 {
+    font-size: 36px; /* 글자 크기 */
+    color: #343a40; /* 글자 색 */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.section {
+    background: #fff;
+    border-radius: 24px 24px 0 0;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+    margin-top: -40px;
+    padding: 80px 0 0 0;
+}
+
+.banner-section {
+    position: relative;
+    width: 100vw;
+    height: 95vh;
+    background: url('/image/banner.png') center/cover no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.banner-title {
+    font-size: 4vw;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    margin-bottom: 1vw;
+}
+
+.banner-desc {
+    font-size: 1.3vw;
+    margin-bottom: 2vw;
+}
+
+.scroll-btn {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.scroll-btn:hover {
+    background: #ffe0e9;
+}
+
+.scroll-btn svg {
+    width: 32px;
+    height: 32px;
+    fill: #ff6f91;
+}
+
+.section {
+    min-height: 100vh;
+    padding: 80px 0 0 0;
+    background: #fff;
+}
+
+@media (max-width: 600px) {
+    .news-card {
+        padding: 15px;
+    }
+    .news-card h2 {
+        font-size: 1.2em;
+    }
+}
