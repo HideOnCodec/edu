@@ -1,7 +1,7 @@
-package com.edu.todayperfume.perfume.service;
+package com.edu.todayperfume.note.service;
 
-import com.edu.todayperfume.perfume.dto.NotesDto;
-import com.edu.todayperfume.perfume.mapper.NotesMapper;
+import com.edu.todayperfume.note.dto.NotesDto;
+import com.edu.todayperfume.note.mapper.NotesMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -35,5 +35,11 @@ public class NoteServiceImpl implements NotesService {
     public List<NotesDto> findNotesListAll() {
         log.info("findNotesListAll()");
         return notesMapper.findNotesListAll();
+    }
+
+    @Override
+    public List<NotesDto> findNotesListByType(Long typeId1, Long typeId2) {
+        log.info("findNotesListByType() :: type1 = {}, type2 = {}", typeId1, typeId2);
+        return notesMapper.findNotesListByType(typeId1, typeId2);
     }
 }

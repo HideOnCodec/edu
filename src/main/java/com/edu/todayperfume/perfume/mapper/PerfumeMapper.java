@@ -1,5 +1,6 @@
 package com.edu.todayperfume.perfume.mapper;
 
+import com.edu.todayperfume.note.dto.NotesDto;
 import com.edu.todayperfume.perfume.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -15,5 +16,5 @@ public interface PerfumeMapper {
     Optional<PerfumeDto> findPerfumeById(@Param("id") Long id);
     List<PerfumeDto> findPerfumeListByNoteOrderByCreatedAt(@Param("noteId") Long noteId);
     List<PerfumeDto> findPerfumeListByNoteOrderByRating(@Param("noteId") Long noteId);
-    Optional<PerfumeDto> recommend(PerfumeRecommendReqDto req);
+    List<PerfumeDto> recommend(@Param("req") PerfumeRecommendReqDto req, @Param("noteList") List<NotesDto> noteList);
 }

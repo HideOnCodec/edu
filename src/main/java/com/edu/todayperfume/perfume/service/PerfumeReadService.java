@@ -1,12 +1,11 @@
 package com.edu.todayperfume.perfume.service;
 
-import com.edu.todayperfume.perfume.dto.NotesDto;
+import com.edu.todayperfume.note.dto.NotesDto;
 import com.edu.todayperfume.perfume.dto.PerfumeDto;
 import com.edu.todayperfume.perfume.dto.PerfumeRecommendReqDto;
 import com.edu.todayperfume.perfume.dto.TypeDto;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface PerfumeReadService {
     /** 향수 번호로 한 개의 향수 데이터 조회 */
@@ -18,5 +17,5 @@ public interface PerfumeReadService {
     /** 모든 타입 조회 */
     List<TypeDto> findTypeList();
     /** 향추 추천하기 */
-    PerfumeDto recommend(PerfumeRecommendReqDto req);
+    PerfumeDto recommend(PerfumeRecommendReqDto req, List<NotesDto> noteList);
 }

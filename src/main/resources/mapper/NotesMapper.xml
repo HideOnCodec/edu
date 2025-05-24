@@ -3,13 +3,15 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.edu.todayperfume.perfume.mapper.NotesMapper">
-    <!-- ID로 단건 조회 -->
-    <select id="findNotesListAll" resultType="com.edu.todayperfume.perfume.dto.NotesDto">
-        SELECT
-        n.id,
-        n.name,
-        t.name
+<mapper namespace="com.edu.todayperfume.note.mapper.NotesMapper">
+    <select id="findNotesListAll" resultType="com.edu.todayperfume.note.dto.NotesDto">
+        SELECT id, name
+        FROM NOTES
+    </select>
+
+    <select id="findNotesListByType" resultType="com.edu.todayperfume.note.dto.NotesDto">
+        SELECT n.id, n.name
         FROM NOTES n LEFT JOIN TYPE t ON n.type = t.id
+        WHERE t.id in (${typeId1}, ${typeId2})
     </select>
 </mapper>
