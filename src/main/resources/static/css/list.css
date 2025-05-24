@@ -1,0 +1,152 @@
+.container {
+    padding-top: 2rem;
+}
+
+#sort-btn{
+    width: 200px;
+    text-align: center;
+}
+
+/* 정렬 버튼 스타일 */
+.btn-group .btn-outline-primary {
+    border-color: #6c757d;
+    color: #6c757d;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.btn-group .btn-outline-primary:hover,
+.btn-group .btn-outline-primary.active {
+    background-color: #6c757d;
+    color: white;
+    border-color: #6c757d;
+}
+
+.btn-group .btn-outline-primary.active {
+    box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.25);
+}
+
+/* 향수 카드 스타일 */
+.perfume-card {
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    background: white;
+    height: 100%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    padding: 1.5rem;
+}
+
+.perfume-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.perfume-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.perfume-brand {
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.perfume-notes {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.note-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.note-item:last-child {
+    margin-bottom: 0;
+}
+
+.note-label {
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.note-value {
+    color: #495057;
+}
+
+.perfume-info {
+    border-top: 1px solid #e9ecef;
+    padding-top: 1rem;
+}
+
+.perfume-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.price {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.rating {
+    color: #ffc107;
+    font-weight: 500;
+}
+
+.detail-btn {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.detail-btn:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* 노트 선택 버튼 스타일 */
+.note-selection {
+    margin-bottom: 1rem;
+}
+
+.note-selection .btn-group {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.note-selection .btn-outline-secondary {
+    border-color: #6c757d;
+    color: #6c757d;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+    border-radius: 20px !important;
+}
+
+.note-selection .btn-outline-secondary:hover,
+.note-selection .btn-outline-secondary.active {
+    background-color: #6c757d;
+    color: white;
+    border-color: #6c757d;
+}
+
+.note-selection .btn-outline-secondary.active {
+    box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.25);
+} 

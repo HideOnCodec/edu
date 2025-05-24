@@ -1,12 +1,41 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="icon" type="image/png" href="/image/logo.png">
 </head>
 <body>
+<!-- 메시지가 있으면 alert 띄우기 -->
+<c:if test="${not empty message}">
+    <script>
+        alert('${message}');
+    </script>
+</c:if>
 <%@ include file="../layout/navbar.jsp" %>
-
+<div class="login-container">
+    <div class="login-box">
+        <h1 class="login-title">Today Perfume</h1>
+        <form class="login-form" action="/user/login" method="POST">
+            <div class="form-group">
+                <label for="id">아이디</label>
+                <input type="text" id="id" name="id" placeholder="아이디를 입력하세요" value="${id}" required>
+            </div>
+            <div class="form-group">
+                <label for="password">비밀번호</label>
+                <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요" required>
+            </div>
+            <c:if test="${not empty error}">
+                <div class="error-message">${error}</div>
+            </c:if>
+            <button type="submit" class="login-btn">로그인</button>
+        </form>
+        <div class="login-options">
+            <a href="/user/signup">회원가입</a>
+        </div>
+    </div>
+</div>
 </body>
 </html>

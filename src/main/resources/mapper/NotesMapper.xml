@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.edu.todayperfume.perfume.mapper.NotesMapper">
+    <!-- ID로 단건 조회 -->
+    <select id="findNotesListAll" resultType="com.edu.todayperfume.perfume.dto.NotesDto">
+        SELECT
+        n.id,
+        n.name,
+        t.name
+        FROM NOTES n LEFT JOIN TYPE t ON n.type = t.id
+    </select>
+</mapper>

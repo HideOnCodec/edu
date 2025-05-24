@@ -1,0 +1,264 @@
+/* 별점 아이콘 기본 스타일 */
+.review-rating i {
+    font-size: 1.2rem;
+    color: #ffc107;
+    margin: 0 2px;
+}
+
+/* 별 비활성화 상태 */
+.bi-star {
+    color: #ddd;
+}
+
+/* 카드 스타일 보강 */
+.review-item {
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 8px rgba(2, 0, 0, 0.05);
+    transition: transform .2s;
+    border: 1px solid #eee;
+}
+.review-item:hover {
+    transform: translateY(-4px);
+    border: 1px solid #eee;
+}
+
+/* 리뷰 내용 여백 */
+.review-content {
+    margin-top: 0.75rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+/* 작성 폼과 버튼도 가운데 정렬 */
+.review-form-section .review-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.review-writer{
+    font-size: medium;
+}
+
+.review-date{
+    color: #6c757d;
+    font-size: small;
+}
+
+/* 라디오별점 커스텀 */
+.rating-input {
+    justify-content: center;
+}
+.star-label i {
+    font-size: 1.8rem;
+    transition: transform .1s;
+}
+.star-label:hover i,
+.star-label:focus-within i {
+    transform: scale(1.2);
+}
+
+/* 버튼 스타일 */
+.review-form-section .btn-primary {
+    background-color: #6f42c1;
+    border-color: #6f42c1;
+}
+.review-form-section .btn-primary:hover {
+    background-color: #5a32a3;
+    border-color: #5a32a3;
+}
+
+/* 리뷰 작성 폼 스타일 */
+.review-form-section {
+    padding: 2rem;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+}
+
+.review-form-section h3 {
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+.rating-input {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.star-label {
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #ddd;
+    transition: color 0.2s;
+}
+
+.star-label:hover,
+.star-label:hover ~ .star-label {
+    color: #ffc107;
+}
+
+.bi-star-fill {
+    color: #ffc107;
+}
+
+/* 리뷰 섹션 스타일 */
+.reviews-container {
+    margin-top: 3rem;
+}
+
+.reviews-section {
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+}
+
+.reviews-section h3 {
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.review-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.review-item {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 10px;
+    transition: transform 0.2s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #eee;
+}
+
+.review-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-color: #e0e0e0;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.review-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.review-writer {
+    font-weight: 600;
+    color: #333;
+    font-size: 1.2rem;
+}
+
+.review-date {
+    color: #999;
+    font-size: 0.85rem;
+}
+
+.review-rating {
+    color: #ffc107;
+}
+
+.review-content {
+    color: #444;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.review-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* 리뷰 작성 폼 스타일 */
+.review-form-section {
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+    position: sticky;
+    top: 2rem;
+}
+
+.review-form-section h3 {
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.rating-input {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.star-label {
+    cursor: pointer;
+    font-size: 1.8rem;
+    color: #ddd;
+    transition: color 0.2s;
+}
+
+.star-label:hover,
+.star-label:hover ~ .star-label {
+    color: #ffc107;
+}
+
+.bi-star-fill {
+    color: #ffc107;
+}
+
+.form-control {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 0.8rem;
+}
+
+.form-control:focus {
+    border-color: #ffc107;
+    box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
+}
+
+.btn-primary {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #333;
+    font-weight: 600;
+    padding: 0.8rem;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #e0a800;
+    border-color: #e0a800;
+    transform: translateY(-1px);
+}
+
+.btn-outline-danger {
+    border-radius: 6px;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .reviews-section,
+    .review-form-section {
+        padding: 1.5rem;
+    }
+
+    .review-form-section {
+        position: static;
+        margin-top: 2rem;
+    }
+}

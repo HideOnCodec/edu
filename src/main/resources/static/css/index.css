@@ -13,6 +13,7 @@ body {
     margin: auto auto 20px auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 */
 }
+
 .title-header h1 {
     font-size: 36px; /* 글자 크기 */
     color: #343a40; /* 글자 색 */
@@ -30,7 +31,7 @@ body {
 .banner-section {
     position: relative;
     width: 100vw;
-    height: 95vh;
+    height: 100vh;
     background: url('/image/banner.png') center/cover no-repeat;
     display: flex;
     flex-direction: column;
@@ -45,38 +46,46 @@ body {
     font-weight: bold;
     letter-spacing: 0.1em;
     margin-bottom: 1vw;
+    color: #343a40;                          /* 글자색 좀 더 진하게 */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2); /* 텍스트 그림자 */
 }
 
 .banner-desc {
     font-size: 1.3vw;
     margin-bottom: 2vw;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2); /* 텍스트 그림자 */
+    color: #6c757d;
 }
 
 .scroll-btn {
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
+    position: relative;
     background: #fff;
     border: none;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
+    border-radius: 30px;
+    padding: 12px 24px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 8px;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: all 0.2s;
+    margin-top: 1vw;
 }
 
 .scroll-btn:hover {
     background: #ffe0e9;
+    transform: translateY(-2px);
+}
+
+.scroll-text {
+    color: #ff6f91;
+    font-weight: 500;
+    font-size: 1.1rem;
 }
 
 .scroll-btn svg {
-    width: 32px;
-    height: 32px;
+    width: 24px;
+    height: 24px;
     fill: #ff6f91;
 }
 

@@ -2,12 +2,12 @@ package com.edu.todayperfume.user.service;
 
 import com.edu.todayperfume.user.dto.UserRequestDto;
 import com.edu.todayperfume.user.dto.UserDto;
-import com.edu.todayperfume.user.dto.UserLoginRequestDto;
+import com.edu.todayperfume.user.dto.LoginRequestDto;
 
 public interface UserService {
-    UserDto create(UserRequestDto req);
+    UserDto createUser(UserRequestDto req);
     UserDto updatePassword(String password);
-    void login(UserLoginRequestDto req);
+    boolean login(LoginRequestDto req);
     void logout();
-    void delete();
+    void deleteUser();
 }

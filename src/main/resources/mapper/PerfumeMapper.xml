@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.edu.todayperfume.perfume.mapper.PerfumeMapper">
+    <!-- ID로 단건 조회 -->
+    <select id="findPerfumeById" parameterType="long" resultType="com.edu.todayperfume.perfume.dto.PerfumeDto">
+        SELECT
+        p.id,
+        p.name,
+        tn.name as topNote,
+        mn.name as middleNote,
+        bn.name as baseNote,
+        p.weather,
+        p.brand,
+        TO_CHAR(p.price, 'FM999,999,999') as price,
+        p.gender,
+        COALESCE(r.AVG_RATE, 0) AS avgReview
+        FROM PERFUME p
+        LEFT JOIN (
+        SELECT perfumeId, AVG(rate) AS AVG_RATE
+        FROM REVIEW
+        GROUP BY perfumeId
+        ) r ON p.ID = r.perfumeId
+        LEFT JOIN NOTES tn ON p.TOPNOTE    = tn.ID
+        LEFT JOIN NOTES mn ON p.MIDDLENOTE = mn.ID
+        LEFT JOIN NOTES bn ON p.BASENOTE   = bn.ID
+        WHERE p.ID = #{id}
+    </select>
+    <!-- 모든 향수 조회 (ID 내림차순) -->
+    <select id="findPerfumeListByNoteOrderByCreatedAt" resultType="com.edu.todayperfume.perfume.dto.PerfumeDto">
+        SELECT
+        p.id,
+        p.name,
+        tn.name as topNote,
+        mn.name as middleNote,
+        bn.name as baseNote,
+        p.weather,
+        p.brand,
+        TO_CHAR(p.price, 'FM999,999,999') as price,
+        p.gender,
+        COALESCE(r.AVG_RATE, 0) AS avgReview
+        FROM PERFUME p
+        LEFT JOIN (
+        SELECT perfumeId, AVG(rate) AS AVG_RATE
+        FROM REVIEW
+        GROUP BY perfumeId
+        ) r ON p.ID = r.perfumeId
+        LEFT JOIN NOTES tn ON p.TOPNOTE    = tn.ID
+        LEFT JOIN NOTES mn ON p.MIDDLENOTE = mn.ID
+        LEFT JOIN NOTES bn ON p.BASENOTE   = bn.ID
+        <where>
+            <!-- noteId가 0이 아니면 필터 추가 (tn, mn, bn 중 하나라도 일치) -->
+            <if test="noteId != 0">
+                AND (
+                p.topNote    = ${noteId}
+                OR p.middleNote = ${noteId}
+                OR p.baseNote   = ${noteId}
+                )
+            </if>
+        </where>
+        ORDER BY p.ID DESC
+    </select>
+    <!-- 평점 평균 내림차순, ID 내림차순 전체 조회 -->
+    <select id="findPerfumeListByNoteOrderByRating" resultType="com.edu.todayperfume.perfume.dto.PerfumeDto">
+        SELECT
+        p.id,
+        p.name,
+        tn.name as topNote,
+        mn.name as middleNote,
+        bn.name as baseNote,
+        p.weather,
+        p.brand,
+        TO_CHAR(p.price, 'FM999,999,999') as price,
+        p.gender,
+        COALESCE(r.AVG_RATE, 0) AS avgReview
+        FROM PERFUME p
+        LEFT JOIN (
+        SELECT perfumeId, AVG(rate) AS AVG_RATE
+        FROM REVIEW
+        GROUP BY perfumeId
+        ) r ON p.ID = r.perfumeId
+        LEFT JOIN NOTES tn ON p.TOPNOTE    = tn.ID
+        LEFT JOIN NOTES mn ON p.MIDDLENOTE = mn.ID
+        LEFT JOIN NOTES bn ON p.BASENOTE   = bn.ID
+        <where>
+            <!-- noteId가 0이 아니면 필터 추가 (tn, mn, bn 중 하나라도 일치) -->
+            <if test="noteId != 0">
+                AND (
+                p.topNote    = ${noteId}
+                OR p.middleNote = ${noteId}
+                OR p.baseNote   = ${noteId}
+                )
+            </if>
+        </where>
+        ORDER BY COALESCE(r.AVG_RATE, 0) DESC, p.ID DESC
+    </select>
+
+    <insert id="save">
+        INSERT INTO PERFUME(name, topNote, middleNote, baseNote, weather, brand, price, gender, updater, createdAt)
+        VALUES(#{name}, ${topNote}, ${middleNote}, ${baseNote}, #{weather}, #{brand}, ${price}, #{gender}, #{updater}, SYSDATE)
+    </insert>
+
+    <update id="update">
+        UPDATE PERFUME
+        SET
+            name = #{name},
+            topNote = ${topNote},
+            middleNote = ${middleNote},
+            baseNote = ${baseNote},
+            weather = #{weather},
+            brand = #{brand},
+            price = ${price},
+            gender = #{gender},
+            updater = #{updater}
+        WHERE
+            id = ${id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM PERFUME WHERE id = ${id}
+    </delete>
+</mapper>

@@ -1,0 +1,79 @@
+/* 향수 상세 정보 스타일 */
+.perfume-detail {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.perfume-name {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.perfume-brand {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.perfume-info {
+    margin-top: 2rem;
+}
+
+.info-item {
+    margin-bottom: 1rem;
+}
+
+.info-item .label {
+    font-weight: bold;
+    color: #666;
+    margin-right: 1rem;
+}
+
+.info-item .value {
+    color: #333;
+}
+
+/* 노트 구성 스타일 */
+.perfume-notes {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+
+.perfume-notes h4 {
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.note-item {
+    margin-bottom: 0.8rem;
+}
+
+.note-label {
+    font-weight: bold;
+    color: #666;
+    margin-right: 1rem;
+}
+
+.note-value {
+    color: #333;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .perfume-detail {
+        padding: 1rem;
+    }
+
+    .perfume-name {
+        font-size: 2rem;
+    }
+
+    .perfume-notes {
+        margin-top: 2rem;
+    }
+}

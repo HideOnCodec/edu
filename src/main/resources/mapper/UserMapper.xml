@@ -4,45 +4,52 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.edu.todayperfume.user.mapper.UserMapper">
-    <select id="save"
-            parameterType="com.edu.todayperfume.user.dto.UserRequestDto"
-            resultType="com.edu.todayperfume.user.dto.UserDto">
-        INSERT INTO USER (id, password, isDeleted, userType)
-        VALUES (#{id}, #{password}, 0,'MEMBER')
-    </select>
+    <insert id="save"
+            parameterType="com.edu.todayperfume.user.dto.UserRequestDto">
+        INSERT INTO USERS (id, password, gender, age, isDeleted, userType, createdAt)
+        VALUES (#{id}, #{password}, #{gender}, ${age}, 0,'MEMBER', SYSDATE)
+    </insert>
 
     <select id="findById" parameterType="string" resultType="com.edu.todayperfume.user.dto.UserDto">
         SELECT
+            u.id,
+            u.password,
+            u.gender,
+            u.age,
+            u.isDeleted,
+            u.userType,
+            TO_CHAR(u.createdAt, 'YYYY-MM-DD HH24:MI:SS') as createdAtStr,
+            TO_CHAR(h.updatedAt, 'YYYY-MM-DD HH24:MI:SS') as updatedAtStr
+        FROM USERS u
+        LEFT JOIN HISTORY h ON u.id = h.entityId and h.entityName = 'USERS'
+        WHERE u.id = #{id}
+        AND rownum = 1
+        ORDER BY updatedat DESC
+    </select>
+
+    <select id="findByIdAndPassword" resultType="com.edu.todayperfume.user.dto.UserDto">
+        SELECT
         u.id,
         u.password,
+        u.gender,
+        u.age,
         u.isDeleted,
         u.userType,
-        TO_CHAR(h.createdAt, 'YYYY-MM-DD HH24:MI:SS') as createdAtStr,
-        TO_CHAR(h.updatedAt, 'YYYY-MM-DD HH24:MI:SS') as updatedAtStr,
-        FROM USER u
-        LEFT JOIN HISTORY h ON u.id = h.entityId and entityName = 'USER'
-        WHERE id = #{id}
+        TO_CHAR(u.createdAt, 'YYYY-MM-DD HH24:MI:SS') as createdAtStr,
+        TO_CHAR(h.updatedAt, 'YYYY-MM-DD HH24:MI:SS') as updatedAtStr
+        FROM USERS u
+        LEFT JOIN HISTORY h ON u.id = h.entityId and h.entityName = 'USERS'
+        WHERE u.id = #{id}
+        AND u.password = #{password}
+        AND rownum = 1
+        ORDER BY updatedat DESC
     </select>
 
-    <select id="findByIdAndPassword" parameterType="string" resultType="com.edu.todayperfume.user.dto.UserDto">
-        SELECT
-        id,
-        password,
-        isDeleted,
-        userType,
-        TO_CHAR(h.createdAt, 'YYYY-MM-DD HH24:MI:SS') as createdAtStr,
-        TO_CHAR(h.updatedAt, 'YYYY-MM-DD HH24:MI:SS') as updatedAtStr,
-        FROM USER u
-        LEFT JOIN HISTORY h ON u.id = h.entityId and entityName = 'USER'
-        WHERE id = #{id}
-        AND password = #{password}
-    </select>
-
-    <update id="updatePassword">
-        UPDATE USER SET password = #{password} WHERE id = #{id}
+    <update id="updatePassword" parameterType="string">
+        UPDATE USERS SET password = #{password} WHERE id = #{id}
     </update>
 
-    <update id="updateIsDeleted">
-        UPDATE USER SET isDeleted = 1 WHERE id = #{id}
+    <update id="updateIsDeleted" parameterType="string">
+        UPDATE USERS SET isDeleted = 1 WHERE id = #{id}
     </update>
 </mapper>

@@ -1,11 +1,10 @@
 package com.edu.todayperfume.global;
 
-import com.edu.todayperfume.perfume.entity.Notes;
+import com.edu.todayperfume.perfume.dto.NotesDto;
 import com.edu.todayperfume.perfume.entity.Weather;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.validation.annotation.Validated;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -17,7 +16,7 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 public class RecommendUtil {
-    public static Map<Integer, List<Notes>> userAnswerToNotesMap = new HashMap<>();
+    public static Map<Integer, List<NotesDto>> userAnswerToNotesMap = new HashMap<>();
 
     @Value("${weather.api.key}")
     private static String SECRET_KEY;

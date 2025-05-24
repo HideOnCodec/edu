@@ -1,20 +1,22 @@
 package com.edu.todayperfume.perfume.service;
 
+import com.edu.todayperfume.perfume.dto.NotesDto;
+import com.edu.todayperfume.perfume.dto.PerfumeDto;
 import com.edu.todayperfume.perfume.dto.PerfumeRecommendReqDto;
-import com.edu.todayperfume.perfume.entity.Perfume;
+import com.edu.todayperfume.perfume.dto.TypeDto;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface PerfumeReadService {
     /** 향수 번호로 한 개의 향수 데이터 조회 */
-    Optional<Perfume> getPerfumeById(int id);
+    PerfumeDto findPerfumeById(Long id);
     /** 최신순 정렬로 모든 향수 가져오기 */
-    List<Perfume> getPerfumeListOrderByCreatedAt();
+    List<PerfumeDto> findPerfumeListByNoteOrderByCreatedAt(Long noteId);
     /** 별점순 정렬로 모든 향수 가져오기 */
-    List<Perfume> getPerfumeListOrderByRating();
-    /** 타입별 향수 가져오기 */
-    List<Perfume> getPerfumeListByNotes(int noteId);
+    List<PerfumeDto> findPerfumeListByNoteOrderByRating(Long noteId);
+    /** 모든 타입 조회 */
+    List<TypeDto> findTypeList();
     /** 향추 추천하기 */
-    int recommend(PerfumeRecommendReqDto req);
+    PerfumeDto recommend(PerfumeRecommendReqDto req);
 }
