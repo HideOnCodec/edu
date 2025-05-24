@@ -1,0 +1,89 @@
+.type-selection {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+}
+
+.type-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.type-card {
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.type-card:hover {
+    border-color: #ff6f91;
+    transform: translateY(-2px);
+}
+
+.type-card.selected {
+    border-color: #ff6f91;
+    background-color: #fff6fb;
+}
+
+.type-card img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 0.5rem;
+}
+
+.type-card h5 {
+    margin: 0;
+    color: #343a40;
+    font-size: 1rem;
+}
+
+.submit-btn {
+    background: #ff6f91;
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 25px;
+    font-weight: 500;
+    margin-top: 2rem;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+    background: #ff4d6d;
+    transform: translateY(-2px);
+}
+
+.submit-btn:disabled {
+    background: #e9ecef;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* 결과 모달 스타일 */
+.result-modal .modal-content {
+    border-radius: 15px;
+}
+
+.result-modal .modal-header {
+    border-bottom: none;
+    padding: 1.5rem;
+}
+
+.result-modal .modal-body {
+    padding: 1.5rem;
+}
+
+.perfume-info {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+}

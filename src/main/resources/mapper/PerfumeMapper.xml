@@ -121,4 +121,52 @@
     <delete id="delete">
         DELETE FROM PERFUME WHERE id = ${id}
     </delete>
+
+    <select id="recommend" resultType="com.edu.todayperfume.perfume.dto.PerfumeDto">
+        SELECT
+        p.id,
+        p.name,
+        tn.name as topNote,
+        mn.name as middleNote,
+        bn.name as baseNote,
+        p.weather,
+        p.brand,
+        TO_CHAR(p.price, 'FM999,999,999') as price,
+        p.gender,
+        COALESCE(r.AVG_RATE, 0) AS avgReview
+        FROM PERFUME p
+        LEFT JOIN (
+        SELECT perfumeId, AVG(rate) AS AVG_RATE
+        FROM REVIEW
+        GROUP BY perfumeId
+        ) r ON p.ID = r.perfumeId
+        LEFT JOIN NOTES tn ON p.TOPNOTE    = tn.ID
+        LEFT JOIN NOTES mn ON p.MIDDLENOTE = mn.ID
+        LEFT JOIN NOTES bn ON p.BASENOTE   = bn.ID
+        <where>
+            <!-- 예: req 로 필터링이 필요하면 이렇게 -->
+            <if test="req.weather != null">
+                AND p.weather = #{req.weather}
+            </if>
+
+            <!-- noteList 가 비어있지 않을 때만 IN 절 추가 -->
+            <if test="noteList != null and noteList.size() &gt; 0">
+                AND (
+                p.topNote    IN
+                <foreach collection="noteList" item="note" open="(" separator="," close=")">
+                    #{note.id}
+                </foreach>
+                OR p.middleNote IN
+                <foreach collection="noteList" item="note" open="(" separator="," close=")">
+                    #{note.id}
+                </foreach>
+                OR p.baseNote   IN
+                <foreach collection="noteList" item="note" open="(" separator="," close=")">
+                    #{note.id}
+                </foreach>
+                )
+            </if>
+            AND r.AVG_RATE >= 2
+        </where>
+    </select>
 </mapper>

@@ -1,21 +1,22 @@
 package com.edu.todayperfume.perfume.controller;
 
-import com.edu.todayperfume.perfume.dto.NotesDto;
+import com.edu.todayperfume.note.dto.NotesDto;
 import com.edu.todayperfume.perfume.dto.PerfumeDto;
+import com.edu.todayperfume.perfume.dto.PerfumeRecommendReqDto;
 import com.edu.todayperfume.perfume.dto.TypeDto;
-import com.edu.todayperfume.perfume.service.NotesService;
+import com.edu.todayperfume.note.service.NotesService;
 import com.edu.todayperfume.perfume.service.PerfumeReadService;
 import com.edu.todayperfume.review.dto.ReviewDto;
 import com.edu.todayperfume.review.service.ReviewService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -73,5 +74,24 @@ public class PerfumeController {
         return "perfume/recommend";
     }
 
+    /**
+     * 향수 추천 기능
+     * @param req
+     * @param redirectAttributes
+     * @return
+     */
+    @PostMapping("/recommend")
+    public String recommend(@ModelAttribute PerfumeRecommendReqDto req, RedirectAttributes redirectAttributes){
+        List<NotesDto> noteList = notesService.findNotesListByType(req.type1(), req.type2());
+        PerfumeDto result = perfumeReadService.recommend(req, noteList);
+        
+        if(result == null){
+            redirectAttributes.addFlashAttribute("error", "향수 추천 실패. 다시 시도해주세요.");
+        } else {
+            redirectAttributes.addFlashAttribute("perfume", result);
+        }
+        
+        return "redirect:/perfume/recommend";
+    }
 
 }
