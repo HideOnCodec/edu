@@ -9,7 +9,6 @@ public record PerfumeUpdateReqDto(
         String weather,       // 어울리는 날씨
         String brand,          // 브랜드 이름
         int price,             // 가격
-        String gender,          // 여성 향수 또는 남성 향수
-        double avgRating // 평균 별점
+        String gender          // 여성 향수 또는 남성 향수
 ) {}
 

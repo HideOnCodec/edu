@@ -33,6 +33,7 @@ public class PerfumeServiceImpl implements PerfumeService {
         // 권한 체크
         String loginUser = LoginUtil.getLoginUser();
         checkAuth(loginUser);
+
         perfumeMapper.save(req, loginUser);
     }
 
@@ -41,12 +42,12 @@ public class PerfumeServiceImpl implements PerfumeService {
      * @param req
      */
     @Override
-    public void updatePerfume(PerfumeUpdateReqDto req) {
+    public void updatePerfume(PerfumeUpdateReqDto req, Long id) {
         log.info("updatePerfume() :: {}", req.id());
         // 권한 체크
         String loginUser = LoginUtil.getLoginUser();
         checkAuth(loginUser);
-        perfumeMapper.update(req, loginUser);
+        perfumeMapper.update(req, id, loginUser);
     }
 
     /**
@@ -59,12 +60,13 @@ public class PerfumeServiceImpl implements PerfumeService {
         perfumeMapper.delete(id);
     }
 
-    private boolean isAdmin(String loginUser) {
+    @Override
+    public boolean isAdmin(String loginUser) {
         UserDto user = userMapper.findById(loginUser).orElseThrow(() -> new CustomException(BaseCode.NOT_EXISTED_EXCEPTION));
         return user.userType().equals("ADMIN");
     }
 
-    private void checkAuth(String loginUser){
+    public void checkAuth(String loginUser){
         if(loginUser == null) {
             throw new NotLoginUserException();
         }

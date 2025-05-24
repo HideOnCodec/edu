@@ -1,3 +1,4 @@
+<%@ page import="com.edu.todayperfume.user.service.UserService" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -18,11 +19,28 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="perfume-header">
-                    <h2 class="perfume-name">${perfume.name()}</h2>
-                    <p class="perfume-brand">${perfume.brand()}</p>
-                    <div class="perfume-rating">
-                        <i class="bi bi-star-fill"></i>
-                        <span>${perfume.avgReview()}</span>
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h2 class="perfume-name">${perfume.name()}</h2>
+                            <p class="perfume-brand">${perfume.brand()}</p>
+                            <div class="perfume-rating">
+                                <i class="bi bi-star-fill"></i>
+                                <span>${perfume.avgReview()}</span>
+                            </div>
+                        </div>
+                        <c:if test="${isAdmin == true}">
+                            <div class="btn-group">
+                                <a href="/perfume/update/${perfume.id()}" class="btn btn-outline-primary">
+                                    <i class="bi bi-pencil"></i> 수정
+                                </a>
+                                <form action="/perfume/${perfume.id()}" method="POST" style="display: inline; margin: 0;">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button type="submit" class="btn btn-outline-danger" onclick="return confirm('정말 삭제하시겠습니까?');">
+                                        <i class="bi bi-trash"></i> 삭제
+                                    </button>
+                                </form>
+                            </div>
+                        </c:if>
                     </div>
                 </div>
                 <div class="perfume-info">
@@ -67,6 +85,27 @@
 
 </div>
 
+<!-- 삭제 확인 모달 -->
+<div class="modal fade" id="deletePerfumeModal" tabindex="-1" aria-labelledby="deletePerfumeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deletePerfumeModalLabel">향수 삭제</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                정말로 이 향수를 삭제하시겠습니까?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                <form action="/perfume/${perfume.id()}" method="POST" style="display: inline;">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn btn-danger">삭제</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

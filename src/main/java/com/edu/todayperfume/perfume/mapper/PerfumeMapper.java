@@ -10,8 +10,8 @@ import java.util.Optional;
 
 @Mapper
 public interface PerfumeMapper {
-    void save(PerfumeCreateReqDto perfumeCreateReqDto, @Param("updater") String updater);
-    void update(PerfumeUpdateReqDto perfumeUpdateReqDto, @Param("updater") String updater);
+    Long save(@Param("perfume") PerfumeCreateReqDto perfumeCreateReqDto, @Param("updater") String updater);
+    void update(@Param("perfume") PerfumeUpdateReqDto perfumeUpdateReqDto, @Param("id") Long id, @Param("updater") String updater);
     void delete(@Param("id") Long id);
     Optional<PerfumeDto> findPerfumeById(@Param("id") Long id);
     List<PerfumeDto> findPerfumeListByNoteOrderByCreatedAt(@Param("noteId") Long noteId);

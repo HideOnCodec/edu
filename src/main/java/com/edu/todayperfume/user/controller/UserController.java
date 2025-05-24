@@ -67,7 +67,7 @@ public class UserController {
     }
 
     /** 비밀번호 변경 기능 */
-    @PostMapping("/password")
+    @PatchMapping("/password")
     public String password(@RequestParam("password") String password) {
         userService.updatePassword(password);
         return "redirect:/";

@@ -99,20 +99,30 @@
 
     <insert id="save">
         INSERT INTO PERFUME(name, topNote, middleNote, baseNote, weather, brand, price, gender, updater, createdAt)
-        VALUES(#{name}, ${topNote}, ${middleNote}, ${baseNote}, #{weather}, #{brand}, ${price}, #{gender}, #{updater}, SYSDATE)
+        VALUES(
+        #{perfume.name},
+        ${perfume.topNote},
+        ${perfume.middleNote},
+        ${perfume.baseNote},
+        #{perfume.weather},
+        #{perfume.brand},
+        ${perfume.price},
+        #{perfume.gender},
+        #{updater},
+        SYSDATE)
     </insert>
 
     <update id="update">
         UPDATE PERFUME
         SET
-            name = #{name},
-            topNote = ${topNote},
-            middleNote = ${middleNote},
-            baseNote = ${baseNote},
-            weather = #{weather},
-            brand = #{brand},
-            price = ${price},
-            gender = #{gender},
+            name = #{perfume.name},
+            topNote = ${perfume.topNote},
+            middleNote = ${perfume.middleNote},
+            baseNote = ${perfume.baseNote},
+            weather = #{perfume.weather},
+            brand = #{perfume.brand},
+            price = ${perfume.price},
+            gender = #{perfume.gender},
             updater = #{updater}
         WHERE
             id = ${id}

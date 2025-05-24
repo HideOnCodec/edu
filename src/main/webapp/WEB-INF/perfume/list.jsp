@@ -7,13 +7,14 @@
     <link rel="icon" type="image/png" href="/image/logo.png">
     <link href="/css/list.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 </head>
 <body>
 <%@ include file="../layout/navbar.jsp" %>
 <div class="container mt-5">
     <div class="d-flex flex-column gap-3 mb-4">
         <!-- 정렬 버튼 -->
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center position-relative">
             <div class="btn-group" role="group" id="sort-btn">
                 <a href="?sort=last<c:if test="${not empty noteId}">&noteId=${noteId}</c:if>"
                    class="btn btn-outline-primary ${sort == 'last' or empty sort ? 'active' : ''}">
@@ -24,6 +25,11 @@
                     별점순
                 </a>
             </div>
+            <c:if test="${isAdmin == true}">
+                <a href="/perfume/create" class="btn btn-primary position-absolute end-0">
+                    <i class="bi bi-plus-lg"></i> 향수 등록
+                </a>
+            </c:if>
         </div>
 
         <!-- 노트 선택 -->
