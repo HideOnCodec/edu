@@ -19,6 +19,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/perfume/list">향수 목록</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/perfume/summary">향수 통계</a>
+                </li>
                 <c:choose>
                     <c:when test="${not empty sessionScope.loginUser}">
                         <li class="nav-item dropdown">

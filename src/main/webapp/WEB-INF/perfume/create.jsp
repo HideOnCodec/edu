@@ -20,10 +20,14 @@
                     <h3 class="text-center">향수 등록</h3>
                 </div>
                 <div class="card-body">
-                    <form action="/perfume/create" method="POST">
+                    <form action="/perfume/create" method="POST" enctype="multipart/form-data">
                         <div class="row">
                             <!-- 왼쪽 컬럼 -->
                             <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="image" class="form-label">향수 이미지</label>
+                                    <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+                                </div>
                                 <div class="mb-3">
                                     <label for="name" class="form-label">향수 이름</label>
                                     <input type="text" class="form-control" id="name" name="name" required>

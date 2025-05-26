@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.edu.todayperfume.perfume.mapper.RecommendHistoryMapper">
+    <insert id="save">
+        INSERT INTO RECOMMENDHISTORY(type1, type2, perfumeId, createdAt) 
+        VALUES(#{req.type1Name}, #{req.type2Name}, #{perfumeId}, SYSDATE)
+    </insert>
+    <select id="rank" resultType="com.edu.todayperfume.perfume.dto.TypeRankDto">
+        SELECT
+        type,
+        SUM(cnt) AS totalCnt
+        FROM (
+        SELECT type1 AS type, COUNT(*) AS cnt
+        FROM RecommendHistory
+        GROUP BY type1
+        UNION ALL
+        SELECT type2 AS type, COUNT(*) AS cnt
+        FROM RecommendHistory
+        GROUP BY type2
+        ) t
+        GROUP BY type
+        ORDER BY totalCnt DESC
+    </select>
+</mapper>

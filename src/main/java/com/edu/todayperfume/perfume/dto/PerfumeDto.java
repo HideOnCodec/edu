@@ -9,7 +9,9 @@ public record PerfumeDto(
         String baseNote,      // 베이스 노트
         String weather,      // 어울리는 날씨
         String brand,        // 브랜드 이름
-        String price,        // 가격
+        int price,        // 가격
+        String priceStr,
         String gender,       // 여성 향수 또는 남성 향수
-        double avgReview     // 평점 평균
+        double avgReview,     // 평점 평균
+        String image
 ) {}

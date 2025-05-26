@@ -6,6 +6,49 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.perfume-image {
+    max-width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+    margin: 0 auto;
+    display: block;
+}
+.perfume-header {
+    position: relative;
+    margin-bottom: 1rem;
+}
+.admin-buttons {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    background-color: white;
+}
+.info-section, .notes-section {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    height: 100%;
+}
+.info-item, .note-item {
+    margin-bottom: 1rem;
+}
+.info-label, .note-label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 0.5rem;
+}
+.info-value, .note-value {
+    color: #6c757d;
+}
+.perfume-title {
+    margin-bottom: 1.5rem;
+}
+
+#perfume-image{
+    height: 250px;
+}
+
 .perfume-name {
     font-size: 2.5rem;
     font-weight: bold;
@@ -23,20 +66,6 @@
     margin-top: 2rem;
 }
 
-.info-item {
-    margin-bottom: 1rem;
-}
-
-.info-item .label {
-    font-weight: bold;
-    color: #666;
-    margin-right: 1rem;
-}
-
-.info-item .value {
-    color: #333;
-}
-
 /* 노트 구성 스타일 */
 .perfume-notes {
     background-color: #f8f9fa;
@@ -47,20 +76,6 @@
 .perfume-notes h4 {
     color: #333;
     margin-bottom: 1rem;
-}
-
-.note-item {
-    margin-bottom: 0.8rem;
-}
-
-.note-label {
-    font-weight: bold;
-    color: #666;
-    margin-right: 1rem;
-}
-
-.note-value {
-    color: #333;
 }
 
 /* 반응형 디자인 */

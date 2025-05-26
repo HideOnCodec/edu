@@ -51,25 +51,56 @@
         <div class="col-md-4">
             <div class="review-form-section">
                 <h3>리뷰 작성</h3>
-                <form action="/review" method="post" class="review-form">
-                    <input type="hidden" name="perfumeId" value="${perfume.id()}">
-                    <div class="mb-3">
-                        <label class="form-label">별점</label>
-                        <div class="rating-input">
-                            <c:forEach begin="1" end="5" var="i">
-                                <input type="radio" name="rate" value="${i}" id="star${i}" class="d-none">
-                                <label for="star${i}" class="star-label">
-                                    <i class="bi bi-star"></i>
-                                </label>
-                            </c:forEach>
+                <c:choose>
+                    <c:when test="${not empty existedReview}">
+                        <div class="review-item">
+                            <div class="review-header">
+                                <div class="review-info">
+                                    <span class="review-writer">${existedReview.writer()}</span>
+                                    <span class="review-date">${existedReview.createdAtStr()}</span>
+                                </div>
+                                <div class="review-rating">
+                                    <c:forEach begin="1" end="5" var="i">
+                                        <i class="bi bi-star${i <= existedReview.rate() ? '-fill' : ''}"></i>
+                                    </c:forEach>
+                                </div>
+                            </div>
+                            <p class="review-content">${existedReview.content()}</p>
+                            <form action="/review" method="post" class="review-actions">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="perfumeId" value="${perfume.id()}">
+                                <input type="hidden" name="reviewId" value="${existedReview.id()}">
+                                <button type="submit" class="btn btn-outline-danger btn-sm">
+                                    <i class="bi bi-trash"></i> 삭제
+                                </button>
+                            </form>
                         </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="content" class="form-label">리뷰 내용</label>
-                        <textarea class="form-control" id="content" name="content" rows="4" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">리뷰 작성</button>
-                </form>
+                    </c:when>
+                    <c:otherwise>
+                        <form action="/review" method="post" class="review-form">
+                            <input type="hidden" name="perfumeId" value="${perfume.id()}">
+                            <div class="mb-3">
+                                <label class="form-label">별점</label>
+                                <div class="rating-input">
+                                    <c:forEach begin="1" end="5" var="i">
+                                        <input type="radio" name="rate" value="${i}" id="star${i}" class="d-none">
+                                        <label for="star${i}" class="star-label">
+                                            <i class="bi bi-star"></i>
+                                        </label>
+                                    </c:forEach>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="content" class="form-label">리뷰 내용</label>
+                                <textarea class="form-control" id="content" name="content" rows="4" required maxlength="500"></textarea>
+                                <div class="form-text text-end">
+                                    <span id="contentLength">0</span>/500
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">리뷰 작성</button>
+                        </form>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
     </div>
@@ -128,6 +159,19 @@
                 e.preventDefault();
                 alert('리뷰 내용을 입력해주세요.');
                 return;
+            }
+        });
+
+        const contentTextarea = document.getElementById('content');
+        const contentLength = document.getElementById('contentLength');
+        
+        contentTextarea.addEventListener('input', function() {
+            const length = this.value.length;
+            contentLength.textContent = length;
+            
+            if (length > 500) {
+                this.value = this.value.substring(0, 500);
+                contentLength.textContent = 500;
             }
         });
     });

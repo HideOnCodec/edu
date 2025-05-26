@@ -13,8 +13,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,12 +37,15 @@ public class PerfumeController {
      */
     @GetMapping("/{id}")
     public String perfume(@PathVariable("id") Long id, Model model) {
-        boolean isAdmin = perfumeService.isAdmin(LoginUtil.getLoginUser());
+        String loginUser = LoginUtil.getLoginUser();
+        boolean isAdmin = perfumeService.isAdmin(loginUser);
         PerfumeDto result = perfumeReadService.findPerfumeById(id);
         List<ReviewDto> reviewList = reviewService.findReviewListAllOrderByCreatedAt(id);
+        Optional<ReviewDto> existedReviewOpt = reviewService.findReviewByUserIdAndPerfumeId(loginUser, id);
         model.addAttribute("perfume", result);
         model.addAttribute("reviewList", reviewList);
         model.addAttribute("isAdmin", isAdmin);
+        model.addAttribute("existedReview", existedReviewOpt.orElse(null));
         return "perfume/detail";
     }
 
@@ -116,8 +121,9 @@ public class PerfumeController {
      * @return
      */
     @PostMapping("/create")
-    public String create(@ModelAttribute PerfumeCreateReqDto req){
-        perfumeService.createPerfume(req);
+    public String create(@ModelAttribute PerfumeCreateReqDto req, @RequestParam("image") MultipartFile image) throws IOException {
+        String imageUrl = perfumeService.fileUpload(image);
+        perfumeService.createPerfume(imageUrl, req);
         return "redirect:/perfume/list";
     }
 
@@ -138,8 +144,12 @@ public class PerfumeController {
      * @return
      */
     @PatchMapping("/{id}")
-    public String update(@PathVariable("id") Long id, @ModelAttribute PerfumeUpdateReqDto req){
-        perfumeService.updatePerfume(req, id);
+    public String update(@PathVariable("id") Long id, @ModelAttribute PerfumeUpdateReqDto req, @RequestParam(value = "image", required = false) MultipartFile image) throws IOException {
+        String imageUrl = null;
+        if(image != null && !image.isEmpty()){
+            imageUrl = perfumeService.fileUpload(image);
+        }
+        perfumeService.updatePerfume(imageUrl, req, id);
         return "redirect:/perfume/" + req.id();
     }
 
@@ -150,8 +160,22 @@ public class PerfumeController {
      */
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") Long id) {
+        PerfumeDto perfumeDto = perfumeReadService.findPerfumeById(id);
+        perfumeService.deleteFile(perfumeDto.image());
         perfumeService.deletePerfume(id);
         return "redirect:/perfume/list";
+    }
+
+    /**
+     * 향수 통계 뷰
+     */
+    @GetMapping("/summary")
+    public String summary(Model model){
+        List<TypeRankDto> typeList = perfumeReadService.findTypeRankList();
+        List<PerfumeRankDto> perfumeRankList = perfumeReadService.findPerfumeRankList();
+        model.addAttribute("typeList", typeList);
+        model.addAttribute("perfumeRankList", perfumeRankList);
+        return "perfume/summary";
     }
 
 }

@@ -27,11 +27,18 @@
     box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.25);
 }
 
+.perfume-image {
+    height: 180px;
+    object-fit: contain;
+    padding: 10px;
+    background-color: #f8f9fa;
+}
+
 /* 향수 카드 스타일 */
 .perfume-card {
     border: 1px solid #e9ecef;
     border-radius: 12px;
-    transition: all 0.3s ease;
+    transition: transform 0.2s;
     background: white;
     height: 100%;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
@@ -40,7 +47,7 @@
 
 .perfume-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
 .perfume-title {

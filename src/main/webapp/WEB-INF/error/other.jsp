@@ -11,6 +11,7 @@
 </head>
 <body>
 <h1>Oops!</h1>
-<img src="/image/error.png">
+<h3>${message}</h3>
+<img src="/image/error400.png">
 </body>
 </html>

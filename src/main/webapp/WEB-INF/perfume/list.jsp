@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,9 @@
     <link href="/css/list.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+    <style>
+
+    </style>
 </head>
 <body>
 <%@ include file="../layout/navbar.jsp" %>
@@ -51,36 +55,19 @@
     <div class="row row-cols-1 row-cols-md-3 g-4">
         <c:forEach items="${perfumeList}" var="perfume">
             <div class="col">
-                <div class="perfume-card">
+                <div class="card perfume-card h-100" style="width: 90%">
+                    <c:if test="${not empty perfume.image()}">
+                        <img src="${perfume.image()}" class="card-img-top perfume-image" alt="${perfume.name()}">
+                    </c:if>
                     <div class="card-body">
-                        <h5 class="perfume-title">${perfume.name()}</h5>
-                        <p class="perfume-brand">${perfume.brand()}</p>
-                        <div class="perfume-notes">
-                            <div class="note-item">
-                                <span class="note-label">탑 노트</span>
-                                <span class="note-value">${perfume.topNote()}</span>
-                            </div>
-                            <div class="note-item">
-                                <span class="note-label">미들 노트</span>
-                                <span class="note-value">${perfume.middleNote()}</span>
-                            </div>
-                            <div class="note-item">
-                                <span class="note-label">베이스 노트</span>
-                                <span class="note-value">${perfume.baseNote()}</span>
-                            </div>
-                        </div>
-                        <div class="perfume-info mt-3">
-                            <div class="perfume-price">
-                                <span class="price">${perfume.price()}원</span>
-                                <span class="rating">★ ${perfume.avgReview()}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer bg-transparent border-top-0">
-                        <button class="detail-btn w-100"
-                                onclick="location.href='/perfume/${perfume.id()}'">
-                            상세보기
-                        </button>
+                        <h5 class="card-title">${perfume.name()}</h5>
+                        <p class="card-text">${perfume.brand()}</p>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                <i class="bi bi-star-fill"></i> <fmt:formatNumber value="${perfume.avgReview()}" pattern="0.00"/>
+                            </small>
+                        </p>
+                        <a href="/perfume/${perfume.id()}" class="btn btn-outline-primary">상세보기</a>
                     </div>
                 </div>
             </div>

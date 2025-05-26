@@ -1,16 +1,17 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: elmo
-  Date: 5/23/25
-  Time: 10:15 AM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Errors 400</title>
+    <link rel="icon" type="image/png" href="/image/logo.png">
+    <style>
+        body{
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-
+<h1>Oops!</h1>
+<h3>잘못된 요청입니다.</h3>
+<img src="/image/error400.png">
 </body>
 </html>

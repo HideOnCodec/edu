@@ -1,6 +1,7 @@
 package com.edu.todayperfume.note.service;
 
 import com.edu.todayperfume.note.dto.NotesDto;
+import com.edu.todayperfume.perfume.dto.TypeDto;
 
 import java.util.List;
 

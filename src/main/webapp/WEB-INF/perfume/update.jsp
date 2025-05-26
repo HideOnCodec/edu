@@ -20,11 +20,20 @@
                     <h3 class="text-center">향수 수정</h3>
                 </div>
                 <div class="card-body">
-                    <form action="/perfume/${perfume.id()}" method="POST">
+                    <form action="/perfume/${perfume.id()}" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="_method" value="PATCH">
                         <div class="row">
                             <!-- 왼쪽 컬럼 -->
                             <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="image" class="form-label">향수 이미지</label>
+                                    <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                                    <c:if test="${not empty perfume.image()}">
+                                        <div class="mt-2">
+                                            <img src="${perfume.image()}" alt="현재 이미지" style="max-width: 200px;">
+                                        </div>
+                                    </c:if>
+                                </div>
                                 <div class="mb-3">
                                     <label for="name" class="form-label">향수 이름</label>
                                     <input type="text" class="form-control" id="name" name="name" value="${perfume.name()}" required>

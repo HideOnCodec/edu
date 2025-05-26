@@ -17,11 +17,11 @@
         <form class="signup-form" action="/user/signup" method="POST">
             <div class="form-group">
                 <label for="id">아이디</label>
-                <input type="text" id="id" name="id" placeholder="아이디를 입력하세요" value="${info.id}" required>
+                <input type="text" id="id" name="id" placeholder="아이디를 입력하세요" value="${info.id}" required maxlength="20">
             </div>
             <div class="form-group">
                 <label for="password">비밀번호</label>
-                <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요" required>
+                <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요" required minlength="4" maxlength="20">
             </div>
             <div class="form-group">
                 <label for="gender">성별</label>
