@@ -17,7 +17,7 @@
         <form class="signup-form" action="/user/signup" method="POST">
             <div class="form-group">
                 <label for="id">아이디</label>
-                <input type="text" id="id" name="id" placeholder="아이디를 입력하세요" value="${info.id}" required maxlength="20">
+                <input type="text" id="id" name="id" placeholder="아이디를 입력하세요" value="${info.id()}" required maxlength="20">
             </div>
             <div class="form-group">
                 <label for="password">비밀번호</label>
@@ -27,8 +27,8 @@
                 <label for="gender">성별</label>
                 <select id="gender" name="gender" required>
                     <option value="">성별을 선택하세요</option>
-                    <option value="WOMAN" ${info.gender == 'WOMAN' ? 'selected' : ''}>여성</option>
-                    <option value="MAN" ${info.gender == 'MAN' ? 'selected' : ''}>남성</option>
+                    <option value="WOMAN" ${info.gender() == 'WOMAN' ? 'selected' : ''}>여성</option>
+                    <option value="MAN" ${info.gender() == 'MAN' ? 'selected' : ''}>남성</option>
                 </select>
             </div>
             <div class="form-group">
@@ -40,7 +40,7 @@
                         placeholder="나이를 입력하세요"
                         min="0"
                         max="120"
-                        value="${info.age}"
+                        value="${info.age()}"
                         required
                 >
             </div>
