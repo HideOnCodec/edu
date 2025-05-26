@@ -17,23 +17,20 @@ public class UserController {
 
     /** 로그인 뷰 */
     @GetMapping("/login")
-    public String loginView(@RequestParam(required = false) String redirect, Model model) {
-        if (redirect != null) {
-            model.addAttribute("redirect", redirect);
-        }
+    public String loginView() {
         return "user/login";
     }
 
     /** 로그인 기능 */
     @PostMapping("/login")
-    public String login(@ModelAttribute LoginRequestDto req, @RequestParam(required = false) String redirect, Model model) {
+    public String login(@ModelAttribute LoginRequestDto req, Model model) {
         boolean isLogin = userService.login(req);
         if(!isLogin){
             model.addAttribute("error", "존재하지 않는 사용자 정보입니다.");
             model.addAttribute("id", req.id());
             return "user/login";
         }
-        return redirect != null ? "redirect:" + redirect : "redirect:/";
+        return "redirect:/";
     }
 
     /** 회원가입 뷰 */
