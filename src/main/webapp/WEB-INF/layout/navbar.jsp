@@ -19,6 +19,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/perfume/list">향수 목록</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/perfume/summary">향수 통계</a>
+                </li>
                 <c:choose>
                     <c:when test="${not empty sessionScope.loginUser}">
                         <li class="nav-item dropdown">
@@ -56,6 +59,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="/user/password" method="POST">
+                <input type="hidden" name="_method" value="PATCH">
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="newPassword" class="form-label">새 비밀번호</label>

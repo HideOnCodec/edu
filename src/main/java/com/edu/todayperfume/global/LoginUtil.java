@@ -10,6 +10,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 public class LoginUtil {
     private static final String SESSION_KEY = "loginUser";
     private static final String CREATED_AT = "createdAt";
+    private static final String USERTYPE = "userType";
 
     /** 세션에서 loginUser 아이디를 꺼내 반환합니다. (없으면 null) */
     @SuppressWarnings("unchecked")

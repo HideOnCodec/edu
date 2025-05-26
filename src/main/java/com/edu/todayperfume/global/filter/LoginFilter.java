@@ -13,7 +13,7 @@ import java.util.Set;
 @Slf4j
 public class LoginFilter implements Filter {
     private static final Set<String> EXCLUDES = Set.of(
-           "/", "/user/login", "/user/signup", "/perfume/list", "/perfume"
+           "/", "/user/login", "/user/signup", "/perfume/list", "/perfume/recommend"
     );
 
     @Override
@@ -21,6 +21,10 @@ public class LoginFilter implements Filter {
         // 1. 캐스팅
         HttpServletRequest req  = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
+        if(req == null){
+            return;
+        }
+
         String path = req.getRequestURI().substring(req.getContextPath().length());
 
         if(EXCLUDES.contains(path) || path.startsWith("/css/") || path.startsWith("/image/")) {
@@ -35,7 +39,11 @@ public class LoginFilter implements Filter {
         if (session == null || session.getAttribute("loginUser") == null) {
             // 로그인 페이지로 리다이렉트
             log.info("[LoginFilter] 로그인되지 않은 사용자입니다. redirect To LoginPage");
-            resp.sendRedirect(req.getContextPath() + "/user/login");
+            String redirectUrl = req.getRequestURI();
+            if (req.getQueryString() != null) {
+                redirectUrl += "?" + req.getQueryString();
+            }
+            resp.sendRedirect(req.getContextPath() + "/user/login?redirect=" + redirectUrl);
             return;
         }
         log.info("[LoginFilter] 로그인 인증 완료");

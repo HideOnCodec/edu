@@ -19,13 +19,16 @@
     <div class="login-box">
         <h1 class="login-title">Today Perfume</h1>
         <form class="login-form" action="/user/login" method="POST">
+            <c:if test="${not empty redirect}">
+                <input type="hidden" name="redirect" value="${redirect}">
+            </c:if>
             <div class="form-group">
                 <label for="id">아이디</label>
-                <input type="text" id="id" name="id" placeholder="아이디를 입력하세요" value="${id}" required>
+                <input type="text" id="id" name="id" placeholder="아이디를 입력하세요" value="${id}" required maxlength="20">
             </div>
             <div class="form-group">
                 <label for="password">비밀번호</label>
-                <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요" required>
+                <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요" required minlength="4" maxlength="20">
             </div>
             <c:if test="${not empty error}">
                 <div class="error-message">${error}</div>

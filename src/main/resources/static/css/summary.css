@@ -1,0 +1,84 @@
+body {
+    background: #fafbfc;
+}
+.summary-container {
+    margin-top: 120px;
+    margin-bottom: 60px;
+}
+.summary-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: #222;
+}
+#summary-info {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: stretch;
+}
+.card-wrapper {
+    width: 100%;
+    margin: 0 0 0 30%;
+}
+.card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    margin-bottom: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.card-header {
+    font-size: 1.15rem;
+    font-weight: 600;
+    padding: 18px 28px;
+    border-radius: 16px 16px 0 0;
+    letter-spacing: 0.02em;
+    text-align: left;
+}
+.card-header-blue {
+    background: #3578e5;
+    color: #fff;
+}
+.card-header-green {
+    background: #388e3c;
+    color: #fff;
+}
+.card-body {
+    padding: 28px 24px 24px 24px;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1.08rem;
+    background: #fff;
+}
+.table th, .table td {
+    padding: 0.85rem 1.1rem;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: center;
+    white-space: nowrap;
+}
+.table th {
+    background: #f5f5f5;
+    color: #333;
+    font-weight: 700;
+}
+.table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: #f8f9fa;
+}
+@media (max-width: 800px) {
+    .summary-title {
+        font-size: 1.3rem;
+    }
+}

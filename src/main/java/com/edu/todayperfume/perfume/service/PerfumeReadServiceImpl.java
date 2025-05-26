@@ -6,6 +6,7 @@ import com.edu.todayperfume.note.dto.NotesDto;
 import com.edu.todayperfume.perfume.dto.*;
 import com.edu.todayperfume.perfume.entity.Weather;
 import com.edu.todayperfume.perfume.mapper.PerfumeMapper;
+import com.edu.todayperfume.perfume.mapper.RecommendHistoryMapper;
 import com.edu.todayperfume.perfume.mapper.TypeMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +26,7 @@ import java.util.Random;
 @Transactional(readOnly = true)
 public class PerfumeReadServiceImpl implements PerfumeReadService {
     private final PerfumeMapper perfumeMapper;
+    private final RecommendHistoryMapper recommendHistoryMapper;
     private final TypeMapper typeMapper;
 
     @Value("${weather.api.key}")
@@ -71,13 +73,12 @@ public class PerfumeReadServiceImpl implements PerfumeReadService {
         return typeMapper.findTypeListAll();
     }
 
-
     /**
      * 향수 추천 기능
      */
     @Override
     public PerfumeDto recommend(PerfumeRecommendReqDto req, List<NotesDto> noteList) {
-        log.info("recommend() :: type : {} {}", req.type1(), req.type2());
+        log.info("recommend() :: type : {} {}", req.type1Name(), req.type2Name());
         
         // 날씨 정보 가져오기
         Weather weather = fetchWeatherByOpenAPI();
@@ -86,7 +87,7 @@ public class PerfumeReadServiceImpl implements PerfumeReadService {
         }
         log.info("recommend() :: 날씨 정보 = {}", weather);
         
-        req = new PerfumeRecommendReqDto(req.type1(), req.type2(), weather.name());
+        req = new PerfumeRecommendReqDto(req.type1(), req.type2(),req.type1Name(), req.type2Name(), weather.name());
 
         // 추천 리스트 가져오기
         List<PerfumeDto> perfumeList = perfumeMapper.recommend(req, noteList);
@@ -102,10 +103,32 @@ public class PerfumeReadServiceImpl implements PerfumeReadService {
         int idx = random.nextInt(perfumeList.size());
         PerfumeDto selectedPerfume = perfumeList.get(idx);
         log.info("recommend() :: 최종 선택된 향수 = {}", selectedPerfume);
-        
+
+        // 추천 히스토리에 기록 저장
+        recommendHistoryMapper.save(selectedPerfume.id(), req);
         return selectedPerfume;
     }
 
+    /**
+     * 선택됐던 취향 정보 조회
+     */
+    @Override
+    public List<TypeRankDto> findTypeRankList() {
+        return recommendHistoryMapper.rank();
+    }
+
+    /**
+     * 성별, 나이대별 향수 탑5
+     * @return
+     */
+    @Override
+    public List<PerfumeRankDto> findPerfumeRankList() {
+        return perfumeMapper.findPerfumeRankInfo();
+    }
+
+    /**
+     * 날씨 정보 외부 API 호출
+     */
     private Weather fetchWeatherByOpenAPI() {
         try{
             log.info("fetchWeatherByOpenAPI()");

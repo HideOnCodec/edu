@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +33,12 @@ public class ReviewServiceImpl implements ReviewService {
         if(loginUser == null) {
             throw new NotLoginUserException();
         }
-        reviewMapper.createReview(req, LoginUtil.getLoginUser());
+
+        // 이미 리뷰를 작성했는지 검사
+        Optional<ReviewDto> existed = reviewMapper.findReviewByUserIdAndPerfumeId(loginUser, req.perfumeId());
+        if(!existed.isPresent()) {
+            reviewMapper.createReview(req, LoginUtil.getLoginUser());
+        }
     }
 
     /**
@@ -67,5 +73,11 @@ public class ReviewServiceImpl implements ReviewService {
     public List<ReviewDto> findReviewListAllOrderByCreatedAt(Long perfumeId) {
         log.info("findReviewListAllOrderByCreatedAt() :: {}", perfumeId);
         return reviewMapper.findReviewListAllOrderByCreatedAt(perfumeId);
+    }
+
+    @Override
+    public Optional<ReviewDto> findReviewByUserIdAndPerfumeId(String userId, Long perfumeId) {
+        log.info("findReviewByUserIdAndPerfumeId() :: user = {}, perfume = {}", userId, perfumeId);
+        return reviewMapper.findReviewByUserIdAndPerfumeId(userId, perfumeId);
     }
 }

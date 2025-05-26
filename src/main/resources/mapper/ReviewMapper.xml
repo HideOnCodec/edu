@@ -25,4 +25,10 @@
     FROM REVIEW
     WHERE id = ${id}
   </select>
+
+  <select id="findReviewByUserIdAndPerfumeId" resultType="com.edu.todayperfume.review.dto.ReviewDto">
+    SELECT id, content, rate, writer, perfumeId, TO_CHAR(createdAt, 'YYYY-MM-DD HH24:MI:SS') as createdAtStr
+    FROM REVIEW
+    WHERE writer = #{userId} AND perfumeId = ${perfumeId}
+  </select>
 </mapper>

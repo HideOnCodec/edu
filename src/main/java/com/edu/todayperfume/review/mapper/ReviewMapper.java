@@ -14,4 +14,5 @@ public interface ReviewMapper {
     void createReview(@Param("reqDto") ReviewCreateReqDto reqDto, @Param("writer") String writer);
     void deleteReview(@Param("id") Long id);
     List<ReviewDto> findReviewListAllOrderByCreatedAt(@Param("perfumeId") Long perfumeId);
+    Optional<ReviewDto> findReviewByUserIdAndPerfumeId(@Param("userId") String userId, @Param("perfumeId") Long perfumeId);
 }

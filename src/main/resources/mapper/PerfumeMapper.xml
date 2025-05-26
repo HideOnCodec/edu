@@ -14,9 +14,11 @@
         bn.name as baseNote,
         p.weather,
         p.brand,
-        TO_CHAR(p.price, 'FM999,999,999') as price,
+        p.price,
+        TO_CHAR(p.price, 'FM999,999,999') as priceStr,
         p.gender,
-        COALESCE(r.AVG_RATE, 0) AS avgReview
+        COALESCE(r.AVG_RATE, 0) AS avgReview,
+        p.image
         FROM PERFUME p
         LEFT JOIN (
         SELECT perfumeId, AVG(rate) AS AVG_RATE
@@ -38,9 +40,11 @@
         bn.name as baseNote,
         p.weather,
         p.brand,
-        TO_CHAR(p.price, 'FM999,999,999') as price,
+        p.price,
+        TO_CHAR(p.price, 'FM999,999,999') as priceStr,
         p.gender,
-        COALESCE(r.AVG_RATE, 0) AS avgReview
+        COALESCE(r.AVG_RATE, 0) AS avgReview,
+        p.image
         FROM PERFUME p
         LEFT JOIN (
         SELECT perfumeId, AVG(rate) AS AVG_RATE
@@ -72,9 +76,11 @@
         bn.name as baseNote,
         p.weather,
         p.brand,
-        TO_CHAR(p.price, 'FM999,999,999') as price,
+        p.price,
+        TO_CHAR(p.price, 'FM999,999,999') as priceStr,
         p.gender,
-        COALESCE(r.AVG_RATE, 0) AS avgReview
+        COALESCE(r.AVG_RATE, 0) AS avgReview,
+        p.image
         FROM PERFUME p
         LEFT JOIN (
         SELECT perfumeId, AVG(rate) AS AVG_RATE
@@ -98,24 +104,35 @@
     </select>
 
     <insert id="save">
-        INSERT INTO PERFUME(name, topNote, middleNote, baseNote, weather, brand, price, gender, updater, createdAt)
-        VALUES(#{name}, ${topNote}, ${middleNote}, ${baseNote}, #{weather}, #{brand}, ${price}, #{gender}, #{updater}, SYSDATE)
+        INSERT INTO PERFUME(name, topNote, middleNote, baseNote, weather, brand, price, gender, updater, createdAt, image)
+        VALUES(
+        #{perfume.name},
+        ${perfume.topNote},
+        ${perfume.middleNote},
+        ${perfume.baseNote},
+        #{perfume.weather},
+        #{perfume.brand},
+        ${perfume.price},
+        #{perfume.gender},
+        #{updater},
+        SYSDATE,
+        #{image})
     </insert>
 
-    <update id="update">
+    <update id="update" parameterType="com.edu.todayperfume.perfume.dto.PerfumeUpdateReqDto">
         UPDATE PERFUME
-        SET
-            name = #{name},
-            topNote = ${topNote},
-            middleNote = ${middleNote},
-            baseNote = ${baseNote},
-            weather = #{weather},
-            brand = #{brand},
-            price = ${price},
-            gender = #{gender},
-            updater = #{updater}
-        WHERE
-            id = ${id}
+        SET name = #{perfume.name},
+            brand = #{perfume.brand},
+            price = #{perfume.price},
+            gender = #{perfume.gender},
+            weather = #{perfume.weather},
+            topNote = #{perfume.topNote},
+            middleNote = #{perfume.middleNote},
+            baseNote = #{perfume.baseNote}
+            <if test="image != null">
+                , image = #{image}
+            </if>
+        WHERE id = #{id}
     </update>
 
     <delete id="delete">
@@ -131,9 +148,11 @@
         bn.name as baseNote,
         p.weather,
         p.brand,
-        TO_CHAR(p.price, 'FM999,999,999') as price,
+        p.price,
+        TO_CHAR(p.price, 'FM999,999,999') as priceStr,
         p.gender,
-        COALESCE(r.AVG_RATE, 0) AS avgReview
+        COALESCE(r.AVG_RATE, 0) AS avgReview,
+        p.image
         FROM PERFUME p
         LEFT JOIN (
         SELECT perfumeId, AVG(rate) AS AVG_RATE
@@ -168,5 +187,66 @@
             </if>
             AND r.AVG_RATE >= 2
         </where>
+    </select>
+
+    <select id="findPerfumeRankInfo" resultType="com.edu.todayperfume.perfume.dto.PerfumeRankDto">
+        <![CDATA[
+    WITH filtered AS (
+      SELECT
+        CASE
+            WHEN U.gender LIKE 'MAN' THEN '남자'
+            WHEN U.gender LIKE 'WOMAN' THEN '여자'
+        END AS gender,
+        CASE
+          WHEN U.age BETWEEN 20 AND 29 THEN '20대'
+          WHEN U.age BETWEEN 30 AND 39 THEN '30대'
+          WHEN U.age BETWEEN 40 AND 49 THEN '40대'
+        END AS ageGroup,
+        R.perfumeId,
+        P.name AS perfumeName,
+        R.rate
+      FROM Review R
+      JOIN Users U ON R.writer = U.id
+      JOIN Perfume P ON R.perfumeId = P.id
+      WHERE R.rate >= 3.5
+        AND U.age BETWEEN 20 AND 49
+        AND U.gender IN ('MAN','WOMAN')
+    ),
+    agg AS (
+      SELECT
+        gender,
+        ageGroup,
+        perfumeId,
+        perfumeName,
+        COUNT(*)           AS reviewCnt,
+        ROUND(AVG(rate),2) AS avgRate
+      FROM filtered
+      GROUP BY gender, ageGroup, perfumeId, perfumeName
+    ),
+    ranked AS (
+      SELECT
+        gender,
+        ageGroup,
+        perfumeId,
+        perfumeName,
+        reviewCnt,
+        avgRate,
+        ROW_NUMBER() OVER (
+          PARTITION BY gender, ageGroup
+          ORDER BY reviewCnt DESC, avgRate DESC
+        ) AS rn
+      FROM agg
+    )
+    SELECT
+      gender,
+      ageGroup,
+      perfumeId,
+      perfumeName,
+      reviewCnt,
+      avgRate
+    FROM ranked
+    WHERE rn <= 5
+    ORDER BY gender, ageGroup, rn
+  ]]>
     </select>
 </mapper>

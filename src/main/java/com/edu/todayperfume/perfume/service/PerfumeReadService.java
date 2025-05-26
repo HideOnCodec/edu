@@ -1,9 +1,7 @@
 package com.edu.todayperfume.perfume.service;
 
 import com.edu.todayperfume.note.dto.NotesDto;
-import com.edu.todayperfume.perfume.dto.PerfumeDto;
-import com.edu.todayperfume.perfume.dto.PerfumeRecommendReqDto;
-import com.edu.todayperfume.perfume.dto.TypeDto;
+import com.edu.todayperfume.perfume.dto.*;
 
 import java.util.List;
 
@@ -18,4 +16,6 @@ public interface PerfumeReadService {
     List<TypeDto> findTypeList();
     /** 향추 추천하기 */
     PerfumeDto recommend(PerfumeRecommendReqDto req, List<NotesDto> noteList);
+    List<TypeRankDto> findTypeRankList();
+    List<PerfumeRankDto> findPerfumeRankList();
 }
